@@ -1,0 +1,98 @@
+
+@use "./custom" as *;
+@import "~bootstrap/scss/bootstrap";
+// heading
+.navbar {
+    background-color: $primary;
+    color: $white;
+    font-family: 'Caveat', cursive;
+
+    h1 {
+        padding-right: 40px;
+    }
+}
+
+
+.grocery-content {
+    
+    .container {
+        
+        .row {
+            color: $secondary;
+            
+            .col-sm-6, .col-12 {
+                align-items: center;
+                justify-content: center;
+
+                .btn-primary {
+                    color: $white;
+                }
+            }
+        }
+    }
+}
+
+// cards
+
+.card-img, .card-img-top {
+    object-fit: cover;
+    aspect-ratio: 1/1;
+}
+.card-title {
+    text-transform: capitalize;
+}
+
+// Shopping cart
+
+.offcanvas-header {
+    background-color: $secondary;
+    font-size: 2rem;
+
+    .btn-close {
+        color: $white;
+        background-color: $white;
+    }
+}
+.offcanvas-title {
+    color: $white;
+}
+
+.shopping-cart {
+    .btn {
+        color: $white;
+        display: block;
+        position: absolute;
+        top: 120px;
+        right: 30px;
+    }
+}
+
+.checkout-section {
+    background-color: $primary;
+
+    span {
+        text-align: end;
+    }
+
+    .checkout-button {
+        position: absolute;
+    }
+}
+
+// cart list
+
+.product {
+    border-top: 0.25px solid black;
+
+    .qty-box {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+// cart item
+.cart-item-delete {
+    background-color: transparent;
+    border: none;
+    color: $red;
+}
