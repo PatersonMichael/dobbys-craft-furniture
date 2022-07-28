@@ -1,6 +1,37 @@
 // Cart item data
 import productData from "./data/product-data.json";
-console.log(productData);
+console.log(productData.productData);
+
+const itemData = productData.productData;
+
+// Populate shopping page with productData
+const shoppingPage = document.getElementById('shopping-page');
+
+window.addEventListener('DOMContentLoaded', function() {
+    displayShoppingItems(itemData);
+});
+
+function displayShoppingItems(shoppingItems) {
+    let displayItems = shoppingItems
+    .map(function(item) {
+        return `<div class="col-sm-6 col-12">
+        <div class="card" style="width: 18rem;">
+            <img src=${item.image} class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">${item.title}</h5>
+              <p class="card-text">${item.text}</p>
+              <p class="price-text fw-bold">Price: <span class="price">\$${item.price}</span></p>
+              <button class="btn btn-primary" type="submit">Add to Cart</button>
+            </div>
+          </div>
+    </div>`
+    })
+    .join('');
+
+    shoppingPage.innerHTML = displayItems;
+}
+
+
 /* 
 {
     name: get item name from product card
