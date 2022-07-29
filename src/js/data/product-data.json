@@ -4,42 +4,41 @@
         "title": "my friend's couch",
         "text": "Smells and creaks, but it's still firm!",
         "price": 2000,
-        "image": "/assets/images/aranprime-KbytCpI1i5I-unsplash.jpg"
+        "image": "aranprime-KbytCpI1i5I-unsplash.jpg"
     },
     {
         "id": 2,
         "title": "the ending table",
         "text": "Good for setting and forgetting books on. Coffee stains included.",
         "price": 1500,
-        "image": "/assets/images/benjamin-voros-X63FTIZFbZo-unsplash.jpg"
+        "image": "benjamin-voros-X63FTIZFbZo-unsplash.jpg"
     },
     {
         "id": 3,
         "title": "The \"Uncle Barry\" Chair",
         "text": "Smells and creaks, but it's still firm!",
         "price": 900,
-        "image": "/assets/images/di_an_h-g_8MrEZAvyE-unsplash.jpg"
+        "image": "di_an_h-g_8MrEZAvyE-unsplash.jpg"
     },
     {
         "id": 4,
         "title": "Way-too-small Table",
         "text": "Seriously, who's gonna share breakfast on this thing?",
         "price": 300,
-        "image": "/assets/images/farhad-fallahzad-VtQMBG_Ljc0-unsplash.jpg"
+        "image": "farhad-fallahzad-VtQMBG_Ljc0-unsplash.jpg"
     },
     {
         "id": 5,
         "title": "My old bed",
         "text": "If you find any money in the mattress hand it back to me please.",
         "price": 2000,
-        "image": "/assets/images/haley-owens-VQLFo5oF1t8-unsplash.jpg"
+        "image": "haley-owens-VQLFo5oF1t8-unsplash.jpg"
     },
     {
         "id": 6,
         "title": "ol' mossy",
         "text": "I kinda still want to keep it.",
         "price": 15000,
-        "image": "/assets/images/khloe-arledge-8Rz_RIyp5FM-unsplash.jpg"
+        "image": "khloe-arledge-8Rz_RIyp5FM-unsplash.jpg"
     }
-
 ]}

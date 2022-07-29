@@ -41,6 +41,9 @@
 .card-title {
     text-transform: capitalize;
 }
+.card-text {
+    color: $secondary;
+}
 
 // Shopping cart
 
@@ -76,6 +79,7 @@
 
     .checkout-button {
         position: absolute;
+        margin-top: 25px;
     }
 }
 
@@ -87,6 +91,9 @@
     .qty-box {
         width: 20px;
         height: 20px;
+    }
+    .product-title {
+        text-transform: capitalize;
     }
 }
 
