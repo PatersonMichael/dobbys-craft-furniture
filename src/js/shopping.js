@@ -22,14 +22,14 @@ window.addEventListener('DOMContentLoaded', function() {
 function displayShoppingItems(shoppingItems) {
     let displayItems = shoppingItems
     .map(function(item) {
-        return `<div class="col-sm-6 col-12">
+        return `<div class="col-lg-4 col-md-6 mb-3 d-flex aligh-items-stretch">
         <div class="card" style="width: 18rem;">
             <img src=${item.image} class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">${item.title}</h5>
               <p class="card-text">${item.text}</p>
               <p class="price-text fw-bold">Price: <span class="price">${currencyFormatter.format(item.price)}</span></p>
-              <button class="btn btn-primary cart-btn" type="submit" data-id="${item.id}">Add to Cart</button>
+              <button class="btn btn-primary cart-btn d-flex" type="submit" data-id="${item.id}">Add to Cart</button>
             </div>
           </div>
     </div>`
