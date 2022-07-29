@@ -60,3 +60,12 @@ Need to add:
             1. construct a new "Product item"
                 i. Item name = data from target's card-title
                 ii. Item price = data from target's card-price
+
+
+
+THINGS THAT HAPPENED DURING DEVELOPMENT:
+
+found out how the .find method works
+using a dataset's "id" helps to keep track of data that's being reused across the program
+
+discovered that my code that populates the shopping cart with "new items" can be used when removing data as well, moved it to its own function called updateShoppingCart().

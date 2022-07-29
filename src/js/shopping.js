@@ -29,7 +29,7 @@ function displayShoppingItems(shoppingItems) {
               <h5 class="card-title">${item.title}</h5>
               <p class="card-text">${item.text}</p>
               <p class="price-text fw-bold">Price: <span class="price">${currencyFormatter.format(item.price)}</span></p>
-              <button class="btn btn-primary cart-btn d-flex" type="submit" data-id="${item.id}">Add to Cart</button>
+              <button class="btn btn-primary cart-btn d-flex" type="submit" id="productBtn-${item.id}" data-id="${item.id}">Add to Cart</button>
             </div>
           </div>
     </div>`
@@ -94,31 +94,8 @@ shoppingPage.addEventListener('click', function(e) {
             productBtn.classList.add('disabled');
 
             // create html template of item, fill title and price with associated data
-            shoppingCart.innerHTML = cartObject.cartItems
-            .map(function(item){
-                return `<!-- start product -->
-                <div class="row product">
-                  <div class="col-12">
-                    <p class="product-title">${item.title} 
-                    <span class="product-price position-absolute start-50">
-                      ${currencyFormatter.format(item.price)}
-                    </span>
-                    <button class="cart-item-delete position-absolute end-0 pe-4" data-id="${item.id}">
-                      <i class="fas fa-xmark"></i>
-                    </button>
-                    </p>
-                  </div>
-                </div>
-                <!-- end product -->`
-            })
-            .join('');
-            // update checkout info (subtotal, tax, total)
-            checkoutInfo.innerHTML = `<div class="container mt-4">
-            <p>Subtotal: <span class="subtotal position-absolute start-50">${currencyFormatter.format(cartObject.subtotal)}</span></p>
-            <p class="border-bottom pb-1">Tax: <span class="tax position-absolute start-50">${currencyFormatter.format(cartObject.subtotal * tax)}</span></p>
-            <p class="fw-bold">Total: <span class="total position-absolute start-50">${currencyFormatter.format(cartObject.subtotal + cartObject.subtotal * tax)}</span></p>
-          </div>
-          <button class="checkout-button btn btn-secondary">Checkout</button>`;
+            updateShoppingCart();
+        //   update local storage
             
             console.log("added to cart");
             console.log(cartObject.cartItems);
@@ -128,24 +105,60 @@ shoppingPage.addEventListener('click', function(e) {
             console.log("item already in cart");
         }
     }
+});
+
+// removing an item from the cart
+shoppingCart.addEventListener('click', function(e){
+    const cartItemID = e.target.dataset["id"];
+    const productBtn = document.getElementById(`productBtn-${cartItemID}`);
+    
+    if (cartItemID) {
+        // subtract item price from subtotal
+        cartObject.subtotal -= cartObject.cartItems.find(x => x.id ==cartItemID)["price"];
+        // remove item from cart
+        const cartItemIndex = cartObject.cartItems.indexOf(cartObject.cartItems.find(x => x.id == cartItemID));
+        cartObject.cartItems.splice(cartItemIndex, 1);
+
+        // change card button from "Added to Cart" to "Add to Cart"
+        productBtn.innerHTML = "Add to Cart"
+        // enable add to cart button
+        productBtn.classList.remove('disabled');
+
+        updateShoppingCart();
+        // update local storage
+
+        console.log("removed from cart");
+        console.log(cartObject.cartItems);
+    }
 })
 
-
-
-
-// Removing an item from the cart
-    // subtract item price from subtotal
-    // change card button from "Added to Cart" to "Add to Cart"
-    // enable add to cart button
-    // destroy cart item data
-
-// Calculating and displaying subtotal, tax, total
-    // every new cart item adds its price to the subtotal
-    // when an item is deleted, it is deconstructed and its price is subtracted from total
-
-    // tax = subtotal * 0.725
-    // total = subtotal + tax
-    
+function updateShoppingCart() {
+    shoppingCart.innerHTML = cartObject.cartItems
+    .map(function(item){
+        return `<!-- start product -->
+        <div class="row product">
+          <div class="col-12">
+            <p class="product-title">${item.title} 
+            <span class="product-price position-absolute start-50">
+              ${currencyFormatter.format(item.price)}
+            </span>
+            <button class="cart-item-delete position-absolute end-0 me-4" data-id="${item.id}">
+              <i class="fas fa-xmark" data-id="${item.id}"></i>
+            </button>
+            </p>
+          </div>
+        </div>
+        <!-- end product -->`
+    })
+    .join('');
+    // update checkout info (subtotal, tax, total)
+    checkoutInfo.innerHTML = `<div class="container mt-4">
+    <p>Subtotal: <span class="subtotal position-absolute start-50">${currencyFormatter.format(cartObject.subtotal)}</span></p>
+    <p class="border-bottom pb-1">Tax: <span class="tax position-absolute start-50">${currencyFormatter.format(cartObject.subtotal * tax)}</span></p>
+    <p class="fw-bold">Total: <span class="total position-absolute start-50">${currencyFormatter.format(cartObject.subtotal + cartObject.subtotal * tax)}</span></p>
+  </div>
+  <button class="checkout-button btn btn-secondary">Checkout</button>`;
+}  
 
 // Set up Local Storage
 
