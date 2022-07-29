@@ -16,6 +16,7 @@ let tax = 0.0725;
 window.addEventListener('DOMContentLoaded', function() {
     displayShoppingItems(itemData);
     initializeCheckout();
+    setUpCart();
 });
 
 // Populate shopping page with productData
@@ -86,7 +87,7 @@ shoppingPage.addEventListener('click', function(e) {
             cartObject.cartItems.push(newCartItem);
             
             // add item price to subtotal
-            cartObject.subtotal += newCartItem.price;
+            // cartObject.subtotal += newCartItem.price;
             
             // change "Add to Cart" text to "Added to Cart"
             productBtn.innerHTML = "Added to Cart";
@@ -96,10 +97,10 @@ shoppingPage.addEventListener('click', function(e) {
             // create html template of item, fill title and price with associated data
             updateShoppingCart();
         //   update local storage
-            
+            addToLocalStorage(newCartItem.id, newCartItem);
             console.log("added to cart");
             console.log(cartObject.cartItems);
-            console.log("subtotal: " + cartObject.subtotal);
+            // console.log("subtotal: " + cartObject.subtotal);
             
         } else {
             console.log("item already in cart");
@@ -123,16 +124,33 @@ shoppingCart.addEventListener('click', function(e){
         productBtn.innerHTML = "Add to Cart"
         // enable add to cart button
         productBtn.classList.remove('disabled');
-
+        
         updateShoppingCart();
         // update local storage
-
+        removeFromLocalStorage(cartItemID);
+        
         console.log("removed from cart");
         console.log(cartObject.cartItems);
     }
 })
 
 function updateShoppingCart() {
+    // calculate subtotal
+    cartObject.subtotal = cartObject.cartItems
+    .map(item => item["price"])
+    .reduce((previousPrice, nextPrice) => previousPrice + nextPrice, 0);
+    console.log(cartObject.subtotal);
+
+    // check if items are already in cart
+    if (cartObject.cartItems.length > 0) {
+        cartObject.cartItems.forEach(function(item) {
+            const productBtn = document.getElementById(`productBtn-${item["id"]}`);
+
+            productBtn.innerHTML = "Added to Cart";
+            productBtn.classList.add('disabled');
+        })
+    }
+
     shoppingCart.innerHTML = cartObject.cartItems
     .map(function(item){
         return `<!-- start product -->
@@ -158,12 +176,51 @@ function updateShoppingCart() {
     <p class="fw-bold">Total: <span class="total position-absolute start-50">${currencyFormatter.format(cartObject.subtotal + cartObject.subtotal * tax)}</span></p>
   </div>
   <button class="checkout-button btn btn-secondary">Checkout</button>`;
+  
+
 }  
 
 // Set up Local Storage
 
     // add to storage
+function addToLocalStorage(id, value){
+    const cart = {id,value};
+    let items = getLocalStorage();
+    console.log(items);
 
+items.push(cart);
+localStorage.setItem('list',JSON.stringify(items));
+}
     // update storage
 
     // remove from storage
+function removeFromLocalStorage(id) {
+    let items = getLocalStorage();
+
+    items = items.filter(function(item){
+        if(item.id !== id) {
+            return item;
+        }
+    });
+    localStorage.setItem('list',JSON.stringify(items));
+}
+    // get storage
+function getLocalStorage() {
+    return localStorage.getItem('list')
+    ? JSON.parse(localStorage.getItem('list'))
+    : [];
+}
+
+// Setup using localStorage
+
+function setUpCart() {
+    let items = getLocalStorage();
+    if(items.length > 0) {
+        items.forEach(function(item){
+            cartObject.cartItems.push(item["value"]);
+            // console.log(cartObject.cartItems);
+            updateShoppingCart();
+        })
+    }
+    updateShoppingCart();
+}
